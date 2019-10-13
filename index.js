@@ -8,7 +8,8 @@ const mongoose = require("mongoose");
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
-mongoose.connect(process.env.MONGODBCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+//connecting mongodb container
+mongoose.connect("mongodb://mongodb:27017/order", {useNewUrlParser: true, useUnifiedTopology: true});  
 
 const orderSchema = new mongoose.Schema ({
   platform: String,
@@ -57,7 +58,7 @@ app.post("/", function(req,res){
     if(err){
       console.log(err);
     } else {
-      res.render("/submit");
+      res.render("submit");
     }
   });
 });
