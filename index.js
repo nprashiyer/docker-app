@@ -10,8 +10,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
+
+var mongo_host = (process.env.MONGO_SERVICE_HOST || 'localhost' );
+var mongo_port = (process.env.MONGO_SERVICE_PORT || 27017 );
+var url = 'mongodb://'+mongo_host+':'+mongo_port+'/order';
+
 #connect to mongodb container named mongodb
-mongoose.connect("mongodb://mongodb:27017/order", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const orderSchema = new mongoose.Schema ({
   platform: String,
