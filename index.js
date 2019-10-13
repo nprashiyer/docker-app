@@ -10,7 +10,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
-mongoose.connect(process.env.MONGODBCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+#connect to mongodb container named mongodb
+mongoose.connect("mongodb://mongodb:27017/order", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const orderSchema = new mongoose.Schema ({
   platform: String,
