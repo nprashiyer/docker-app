@@ -2,15 +2,15 @@
 require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
-const bodyParser = require("body-parser");
 const app = express();
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
-//connecting mongodb container
-mongoose.connect("mongodb://mongodb:27017/order", {useNewUrlParser: true, useUnifiedTopology: true});  
+mongoose.connect(process.env.MONGODBCONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const orderSchema = new mongoose.Schema ({
   platform: String,
@@ -40,8 +40,7 @@ app.get("/myservers", function(req,res){
 });
 
 app.post("/", function(req,res){
-
-  const vmname = req.body.vmname.toLowerCase();
+  const vmname = req.body.vmname;
   const platform = req.body.platform;
   const loc = req.body.vmlocation;
   const os =  req.body.vmos;
@@ -50,7 +49,7 @@ app.post("/", function(req,res){
 
     const newOrder = new Order({
     platform: platform,
-    name: vmname,
+    name: vmname.toUpperCase(),
     location: loc.toUpperCase(),
     os: os.toUpperCase()
     });
@@ -59,9 +58,10 @@ app.post("/", function(req,res){
     if(err){
       console.log(err);
     } else {
-      res.render("submit");
+      res.render("submit",{vmname: vmname.toUpperCase()});
     }
   });
+
 });
 
 app.listen(process.env.PORT||8080, function() {
