@@ -1,0 +1,32 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: uniqloud-pod
+  labels:
+    name: uniqloud-pod
+    app: uniqloud
+spec:
+  containers:
+    - name: uniqloud
+      image: nprashiyer/uniqloud
+      ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: uniqloud
+  labels:
+    name: uniqloud-service
+    app: uniqloud
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    name: uniqloud-pod
+    app: uniqloud
