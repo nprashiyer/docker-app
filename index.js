@@ -11,7 +11,7 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
 
-var mongo_host = (process.env.MONGO_SERVICE_HOST || 'localhost' );
+var mongo_host = (process.env.MONGO_SERVICE_HOST || 'mongo' );
 var mongo_port = (process.env.MONGO_SERVICE_PORT || 27017 );
 var url = 'mongodb://'+mongo_host+':'+mongo_port+'/order';
 
