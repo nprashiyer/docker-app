@@ -15,7 +15,7 @@ var mongo_host = (process.env.MONGO_SERVICE_HOST || 'mongo' );
 var mongo_port = (process.env.MONGO_SERVICE_PORT || 27017 );
 var url = 'mongodb://'+mongo_host+':'+mongo_port+'/order';
 
-#connect to mongodb container named mongodb
+//connect to mongodb container named mongodb
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const orderSchema = new mongoose.Schema ({
