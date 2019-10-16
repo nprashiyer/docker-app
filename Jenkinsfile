@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+    
         DOCKER_IMAGE_NAME = "nprashiyer/uniqloud"
     }
     stages {
@@ -38,6 +39,11 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
+                kubernetesDeploy(
+                    kubeconfigId: 'kube_config',
+                    configs: 'mongo.yaml',
+                    enableConfigSubstitution: true
+                )
                 kubernetesDeploy(
                     kubeconfigId: 'kube_config',
                     configs: 'uni.yaml',
