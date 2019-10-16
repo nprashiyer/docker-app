@@ -41,11 +41,6 @@ pipeline {
                 milestone(1)
                 kubernetesDeploy(
                     kubeconfigId: 'kube_config',
-                    configs: 'mongo.yaml',
-                    enableConfigSubstitution: true
-                )
-                kubernetesDeploy(
-                    kubeconfigId: 'kube_config',
                     configs: 'uni.yaml',
                     enableConfigSubstitution: true
                 )
